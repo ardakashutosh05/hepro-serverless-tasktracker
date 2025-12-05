@@ -2,39 +2,48 @@
 <html>
 <head>
     <title>Task Tracker</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <style>
-        body { font-family: Arial; padding: 20px; }
-        #taskBox { margin-top: 20px; }
-        .task-item { padding: 8px; background: #f2f2f2; margin: 5px 0; }
-        button { padding: 8px 12px; background: #4CAF50; color: white; border: none; }
+        body { font-family: Arial; padding: 20px; max-width:760px; margin:30px auto; }
+        header{display:flex;justify-content:space-between;align-items:center}
+        h1{margin:0}
+        .btn{background:#2563eb;color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer}
+        #taskBox{margin-top:20px}
+        input{padding:8px;width:68%;border:1px solid #ddd;border-radius:6px}
+        .task-item{padding:8px;background:#f2f2f2;margin:6px 0;border-radius:6px;display:flex;justify-content:space-between}
     </style>
 </head>
 <body>
-
+  <header>
     <h1>Task Tracker</h1>
-    <button onclick="login()">Login</button>
+    <button class="btn" onclick="login()">Login</button>
+  </header>
 
-    <div id="taskBox">
-        <input id="taskInput" placeholder="Enter task" />
-        <button onclick="addTask()">Add Task</button>
+  <p style="color:#555">Simple demo frontend for the serverless task tracker. Login uses Cognito hosted UI (redirect).</p>
 
-        <div id="taskList"></div>
+  <div id="taskBox">
+    <div style="display:flex;gap:8px;">
+      <input id="taskInput" placeholder="Enter task" />
+      <button class="btn" onclick="addTask()">Add Task</button>
     </div>
+    <div id="taskList"></div>
+  </div>
 
 <script>
 function login() {
-    window.location.href = "YOUR_COGNITO_LOGIN_URL";
+  window.location.href = "https://ap-southeast-1a5kxbku9m.auth.ap-southeast-1.amazoncognito.com/login?client_id=qk2ha28ir0k36puet0rqbgg8&response_type=token&scope=openid+email&redirect_uri=http://keerthi-tasktracker-frontend-ashu-hipro.s3-website-ap-southeast-1.amazonaws.com/";
 }
 
 function addTask() {
-    let task = document.getElementById('taskInput').value;
+    let task = document.getElementById('taskInput').value.trim();
     if (!task) return;
     let div = document.createElement("div");
     div.className = "task-item";
-    div.innerText = task;
-    document.getElementById('taskList').appendChild(div);
+    div.innerHTML = `<span>${task}</span><button onclick="this.parentNode.remove()" style="background:#ef4444;color:#fff;border:none;padding:6px;border-radius:6px;cursor:pointer">Delete</button>`;
+    document.getElementById('taskList').prepend(div);
+    document.getElementById('taskInput').value = '';
 }
 </script>
 </body>
 </html>
-
