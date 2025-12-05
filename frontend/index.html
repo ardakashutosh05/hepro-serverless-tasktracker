@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Task Tracker</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        #taskBox { margin-top: 20px; }
+        .task-item { padding: 8px; background: #f2f2f2; margin: 5px 0; }
+        button { padding: 8px 12px; background: #4CAF50; color: white; border: none; }
+    </style>
+</head>
+<body>
+
+    <h1>Task Tracker</h1>
+    <button onclick="login()">Login</button>
+
+    <div id="taskBox">
+        <input id="taskInput" placeholder="Enter task" />
+        <button onclick="addTask()">Add Task</button>
+
+        <div id="taskList"></div>
+    </div>
+
+<script>
+function login() {
+    window.location.href = "YOUR_COGNITO_LOGIN_URL";
+}
+
+function addTask() {
+    let task = document.getElementById('taskInput').value;
+    if (!task) return;
+    let div = document.createElement("div");
+    div.className = "task-item";
+    div.innerText = task;
+    document.getElementById('taskList').appendChild(div);
+}
+</script>
+</body>
+</html>
+
